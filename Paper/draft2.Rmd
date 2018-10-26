@@ -1,0 +1,90 @@
+---
+output: 
+  pdf_document:
+    citation_package: natbib
+    keep_tex: true
+    fig_caption: true
+    latex_engine: pdflatex
+    template: ./svm-latex-ms.tex
+    
+title: "Decision Problems in Disequilibrium"
+author:
+- name: Collin Butterfield
+  affiliation: Huntsman School of Business
+  
+abstract: "In this article the theme of Decision Problems in Disequilibrium will be discussed. I will look at why more research and models should leverage disequilibrium rather than equilibrium; and how that can impact society. This paper will be a parralell to Buchanan's paper on "What Should Economists Do?" and his ideas about how the approach to economics needs to take a step back and look at exchange and realationships rather than choice contrained by resources."
+
+keywords: "disequilibium, decision, arbitrage, error, credit, machine, learning, equilibrium, behavior, system"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: double
+bibliography: ./master.bib
+biblio-style: apsr
+---
+
+
+>  
+
+# Introduction
+
+For many years, economists and acadamia have taught younger generations that people make choices subject to their constraints. As education progresses, students learn about different market and human behavioral models that are all based on an equalibrium. However, I believe that economists need to remember the origins of economics and restructure their minds to once again believe in 'exchange' and how organisms react with one another beneficially. Naturally when a interaction takes places, all parties make a decision that is mutually beneficial. Part of the process requires disequilibrium for a time; and that is where I believe the impact can be made. "As long as any opportunity continues to exist there is the possibility that the agents will discover it and disturb the existing situation ... In other words, equilibrium occurs only once agents have discovered all the available opportunities and once they know they have done so" @thomsen2002prices. 
+
+# Literature Review
+
+I will be using 4 different sources currently as seen below:
+
+## What Should Economists do? By: James M. Buchanan
+
+Buchanan argues that lately the "approach" to studying economics has been scewed with the idea of "choice". He thinks that all economists need to step back and take a look at the bigger and original picture of "exchange". "I want economists to quit concerning themselves with allocation problems, per se" @Buchanan1979. He notes that if all we think about is maximization of different models, then economists might as well hand over all the work to applied mathematicians.
+
+Buchanan uses the word "catallactics" or "symbiotics" to suggest what economits really study. He states, "Symbiotics is defined as the study of the association between dissimilair organisims, and the cannotation of the term is that the association is mutually beneficial to all parties" @Buchanan1979.  I would like to focus in in his idea that we do not necessarily need models of equilibrium, but that models of disequilibrium can be quite beneficial as well.  
+
+## The Austrian Business Cycle: a Vector Error-correction Model with Commercial and Industrial Loans By: Robert F. Mulligan 
+
+Mulligan states, "This paper explicitly tests the main assertions of ABC theory, that increasing available credit beyond actual saving lowers, rather than increases, real output and real investment expenditure" @mulligan2005austrian. ABC stand for Austrian Business Cycle, which is a theory I will use in this paper. But the main idea that I will be focusing on is the basis that Mulligan states; that Austrain schools view economic activity as a disequilibrium process and that certain vector analysis and models can be used in this disequilibrium state.
+
+##  Prices and Knowledge : A Market-Process Perspective By: Esteban F. Thomsen
+
+In Chapter 2 of Thomsen's book is titled "A theory of the market process". I will be using many of the arguments made in this chapter. Thomsen focuses mainly on the idea of equalibrium. But he states, "As the theory becomes more sophisticated, so do the models and their equilibria. Thus there are not only static equilibria but also a variety of ‘dynamic’ and ‘stochastic’ equilibria, among others" @thomsen2002prices. I will be focusing my attention on his details and ideas about dynamic and stochastic equalibrium. This follows the idea that we should be looking at the behavior of organisms like Buchanan mentions. Thomsen identifies that equilibrium is nothing but a state where the participating parties no longer have incentive to change behavior. 
+
+## IC2S2 2017: Matt Taddy (youtube IC2S2 speach)
+
+The basic theme of Matt Taddy's talk is that, Machine Learning can automate and accelerate tasks in applied econometric workflows and/or subjective labor intense measurement. Taddy expalains that economists look at systems (which relates to buchanan), and that when an economist is hired, he is hired to perform thousands of analyses on a certain economic problem or "measurement" @youtube. In a sense economists are hired to look at the disequilibrium of systems. He then makes the arguement of why Machine Learning needs to be integrated into an economists tool belt, per se. 
+
+# Outline
+
+This is subject to change as revision takes place
+
+* Introduction
+    + why of my paper
+    + possible impacts
+    + thesis
+* Background
+    + what is equilibrium
+* Buchanan arguements
+    + idea of symbiotics
+    + focus on exchange and systems
+* Mulligan arguements
+    + why ABC theory focus on disequalibrium
+    + how models work
+* Thomsen arguements
+    + ideas on dynamic and stochastic equalibrium
+    + behaviior of organisms and parties in and out of equilibrium
+* Applying Disequalibrium Models
+    + Matt Taddy beliefs on AI and ML
+    + self research
+*Conlusion
+    + summary
+    + impact
+    
+<!--
+# References
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{8pt}
+\vspace*{-0.2in}
+\noindent
+-->
+
