@@ -1,0 +1,87 @@
+---
+title: "A Test for Superior Predictive Ability"
+author: "Collin Butterfield"
+date: "December 14, 2018"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Objective:
+
+ For this project we will be recreating a simpler version of Peter Hansen's "A Test for Superior Predictive Ability" example 3. In this example he applies a decision rule to a trading strategy.  The objective of our project is to recreate three of models that Hansen created. We will be recreating 3 trading strategies which are moving average spread models {MA(4,1), MA(8,1), MA(12,1)}. The hope is to be able to gain insight and a better understanding on whether or not these trading strategies are effective or not. This will be done by looking at what Hansen refers to as White's Reality Check test statistic. We will then use White's Reality Check to identify a p-value. This p-value will lead to either a rejection or a failure to reject decision of the null hypothesis. For our analysis we will be looking at energy futures. Specifically, we will be looking at Crude Oil, Gasoline, and Heating Oil futures.
+
+## Background:
+
+This analysis will require the knowledge of buying and selling futures, moving average strategies, bootstrapping, and data snooping. 
+
+#### Futures Contract:
+
+  A futures contract is the obligation of the person holding the future to either buy or sell a specified asset in the future at a predetermined price. If an individual has a long position, they are considered to have a buying position. A buying position will produce a payoff if the price of the underlying asset increases in the future. If an individual has a short position, they are considered to have a selling position. A selling position will have a payoff if the price of the underlying asset decreases in the future.  
+  In our analysis we will be using past data of futures prices that date from 1886 to 1996. We will be looking at futures prices of crude oil (CL), gasoline (GO), and heating oil (HO). 
+
+
+#### Moving Average Strategy:
+
+  A moving average is a succession of averages derived from successive segments (typically of constant size and overlapping) of a series of values. Within futures trading, moving averages can be used in combinations to create buying and selling signs. For example, if a shorter moving average crosses above or below a longer moving average then this would mean either the market has a bullish or bearish momentum. This in turn could be used to establish a long or short position. 
+	In Alizadeh and Nomikos's paper, "Performance of statistical arbitrage in petroleum futures markets,"  they describe how moving average comparisons of the spread of futures prices of one fast (short) moving average and one slow (long) moving average can be used to indicate a long or short position. They say that a positive difference of the slow moving average less the fast moving average "indicates a buy decision." 
+	In our analysis, our three models will be moving average spread models {MA(4,1), MA(8,1), MA(12,1)}.  MA(4,1) means that the model will use a 4 week rolling average as the slow (long) MA and a 1 week rolling average as the fast (short) MA. If the difference of MA(4) and MA(1) is positive we have a buying signal. The same can be said for the models MA(8,1) and MA(12,1).  In our analysis, we will define the spread of the data as:
+	Spread1 = ln(F_CL) - ln(F_GO)
+	Spread2 = ln(F_CL) - ln(F_HO); where F_CL, F_GO, and F_HO represent the futures prices of crude oil, gasoline and heating oil respectively. 
+
+
+#### Data Snooping:
+
+  Data snooping is the idea that an individual uses the same data set multiple times for the purpose of inference or model selection. Data snooping can be very beneficial and also very detrimental. One must be careful when using the same data set multiple times that he/she does not damage the validity of their p-value.  In our analysis we will use bootstrapping to accomplish our data snooping.  
+  
+#### Bootstrapping:
+
+ In statistics there is a method called bootstrapping that allows us to create a more accurate measurement of the variable of interest and also to decrease the standard deviation. Bootstrapping is  the technique of random sampling from the dataset with replacement. 
+	However, because or data is a time series from 1886 to 1996, we need to capture the value of time. In other words, what happened to the futures prices of yesterday affects the futures prices of today. If a normal bootstrapping technique is used then we will lose the essence of time within our data series. As a remedy we will use what is called a stationary bootstrap. A stationary bootstrap is the technique of taking random block samples with replacement. Each block captures a window of the time series, knowing that if the window passes the end of the time series to then connect it back to the start for time series. Each random block then becomes a new sample time series that holds the value of time. For our project we will be bootstrapping 1000 times to create 1000 samples.
+
+
+## Procedure:
+
+In our analysis we will us the null hypothesis that the models generated have none or worse predictive ability and the alternate hypothesis have a better predictive ability.We will reject the null hypothesis if we obtain a p-value less than 0.05. The following will outline the process used to create and obtain the White's reality check test statistic and the corresponding p-value:
+1.	Merge all data sets and only keep futures prices
+  a.	Multiply F_GO and F_HO by 42 to convert dollar/gallon to dollar/barrel
+2.	Calculate the spread of the data
+  a.	Spread1 = ln(F_CL) - ln(F_GO)
+  b.	Spread2 = ln(F_CL) - ln(F_HO)
+3.	Create the long and short moving averages
+  a.	M(4,1) , MA(8,1) , MA(12,1)
+4.	Truncate the data to only look at the past 5 years
+5.	Create the buying and selling indicators to produce Hansen's delta
+  a.	Signal(1,2) = MA(4) - MA(1);	1=CL-GO	2=CL_HO 
+  b.	Signal(3,4) = MA(8) - MA(1);	3=CL-GO	4=CL_HO
+  c.	Signal(5,6) = MA(12) - MA(1);	5=CL-GO	6=CL_HO
+6.	Generate Benchmark and Loss data
+  a.	The benchmark we used was to always take a long position i.e. a signal=1. 
+    i.	BM = -1 * 1 * spread
+  b.	The loss data was created using Hansen's Loss function:
+    i.	L(Return, delta) = -1 * delta * Return; where Return is the spread generated and delta is the buying and/or selling indicator represented as a binary variable of 1 or -1
+7.	Generate the difference of relative performance
+  a.	This is done by subtracting the loss data from the benchmark data
+    i.	d(i) = BM - loss(i), where i is the different models
+8.	Perform 1000 stationary bootstrapping procedures for each model.
+9.	Calculate White's reality check test statistic 
+10.	Compute the corresponding p-value
+  a.	If the p-value < .05 then we will be able to reject the null hypothesis and say that model(i) has a better predictive ability on average. 
+
+## Results:
+
+After our three models were tested, we failed to reject the null hypothesis in every case. 
+    MA(4,1): p-value = 0.0
+    MA(8,1): p-value = 0.0
+    MA(12,1): p-value = 0.0
+The interesting thing was that all three models gave a p-value of exactly 0.0. A p-value of 0.0 is not a good thing in our model. It tells us that none of the values generated from our models were superior to our benchmark. However, after much thought this is not surprising. Hansen conducted thousands of models to see of any would generate a value with a superior predictive ability. In small analysis of three different models, it is not surprising that we would not get a p-value of less than 0.05 but not 0.0. One thing to note was the fact that all three models produced very similar results. Yes all three did produce the same p-value, but upon further investigation of the data (the difference of the benchmark and loss) all three also had very similar values. This signals to me that a moving average strategy for crude oil, gasoline, and heating oil needs to encompass a bigger range i.e. 6 months to a year. I think the moving average strategy may have been too smoothening for these few of futures data. Another aspect about our model I would like to dive deeper into would be the bootstrap blocksize length. Currently we used a blocksize length of 10, but it would be interesting to test a range of blocksizes from 5-30. By changing the blocksize we could potentially decrease our p-value. 
+
+## Conclusion:
+
+  By following the guidelines of Hansen, we were able to recreate three moving average models that use the spread of energy futures to create a predictive model. Though our results ended in the failure to reject the null hypothesis, the knowledge and understanding gained through trial and error can only help to unlock future strategies.  
+
+
